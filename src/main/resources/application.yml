@@ -40,7 +40,3 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
-
-#log4j2
-logging:
-  config: classpath:log4j2.xml

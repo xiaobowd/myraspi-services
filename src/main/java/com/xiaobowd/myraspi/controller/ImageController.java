@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @Api
-@RestController()
+@RestController
 @RequestMapping("/img")
 public class ImageController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ImageController.class);
