@@ -9,7 +9,6 @@ import com.xiaobowd.myraspi.service.ILightService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 @Service
 public class LightServiceImpl implements ILightService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LightServiceImpl.class);
@@ -17,19 +16,19 @@ public class LightServiceImpl implements ILightService {
     @Override
     public String turnLightOn() throws Exception{
             final GpioController gpio = GpioUtil.getGpioController();
-            final GpioPinDigitalOutput light = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, "MyLight", PinState.HIGH);
-//            light.setShutdownOptions(true, PinState.LOW);
-            
-            return "开灯成功!";
+            final GpioPinDigitalOutput light = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_11, "MyLight", PinState.HIGH);
+            light.setShutdownOptions(true, PinState.LOW);
+             light.blink(10,10) ;
+             return "开灯成功!";
     }
 
     @Override
     public String turnLightOff() throws Exception{
         final GpioController gpio = GpioUtil.getGpioController();
-        final GpioPinDigitalOutput light = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, "MyLight", PinState.HIGH);
+        final GpioPinDigitalOutput light = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_11, "MyLight", PinState.HIGH);
         light.low();
         light.setShutdownOptions(true, PinState.LOW);
-
+        light.blink(10, 10);
         return "关灯成功!";
     }
 }

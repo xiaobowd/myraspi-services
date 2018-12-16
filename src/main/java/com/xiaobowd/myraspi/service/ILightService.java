@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 /**
  * 灯光控制服务
  */
-@Service
 public interface ILightService {
 
     /**
