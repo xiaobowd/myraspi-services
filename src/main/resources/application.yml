@@ -1,10 +1,10 @@
 # database
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/xiaobowd
+    url: jdbc:mysql://localhost:3306/mysite?autoReconnect=true&useSSL=false&characterEncoding=utf-8
     driver-class-name: com.mysql.jdbc.Driver
-    username: root
-    data-password: 123123
+    username: mysql
+    password: 123123
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     filters: stat
@@ -20,19 +20,35 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
+    #设置热部署
+    #开启热部署
+    devtools:
+      restart:
+        enabled: true
+    #重启范围
+    additional-paths: src/main/java
+
   mvc:
     view:
       suffix: .jsp
       prefix: /WEB-INF/views/
 
-## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+# 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
 mybatis:
-  mapper-locations: classpath:com/xiaobowd/myraspi/mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
-  type-aliases-package: com.xiaobowd.raspi.bean  # 注意：对应实体类的路径
-
+  mapper-locations: classpath*:/com/xiaobowd/mysite/mapper/*Mapper.xml
+  type-aliases-package: com.xiaobowd.mysite.bean
+  table:
+    auto: update
+  model:
+    pack: com.xiaobowd.mysite.bean
+  database:
+    type: mysql
+  #开启驼峰映射
+  configuration:
+    map-underscore-to-camel-case: true
 #pagehelper分页插件
 pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
